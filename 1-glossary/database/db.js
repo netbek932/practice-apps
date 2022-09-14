@@ -15,12 +15,26 @@ mongoose.connect('mongodb://localhost/glossary',
 const Entry = mongoose.model('Entry', glossarySchema);
 
 const glossarySchema = new mongoose.Schema({
-  word: String,
+  word: {type: String, unique: true},
   definition: String
 })
 
-const save = (item) => {
+const saveOne = (item) => {
+  var newEntry = new Entry({
 
+  })
 }
 
-module.exports.save = save;
+const saveMany = (items) => {
+  for (var i = 0; i < items.length; i++) {
+    var newEntry = new Entry({
+      word: items[i].word,
+      definition: items[i].definition
+    })
+  }
+  .then(res => console.log('Seed data stored'));
+  .catch(err => console.log('Seed data already saved'));
+}
+
+module.exports.saveOne = saveOne;
+module.exports.saveMany = saveMany;
