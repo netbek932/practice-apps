@@ -12,17 +12,25 @@ mongoose.connect('mongodb://localhost/glossary',
 // 3. Export the models
 // 4. Import the models into any modules that need them
 
-const Entry = mongoose.model('Entry', glossarySchema);
-
 const glossarySchema = new mongoose.Schema({
   word: {type: String, unique: true},
   definition: String
 })
 
+const Entry = mongoose.model('Entry', glossarySchema);
+
+const get = () => {
+  return Entry.find({}).then((entries) => {return entries})
+}
+
 const saveOne = (item) => {
   var newEntry = new Entry({
-
+    word: item.word,
+    definition: item.definition
   })
+  newEntry.save()
+  .then(res => console.log('Seed data stored'))
+  .catch(err => {return err});
 }
 
 const saveMany = (items) => {
@@ -31,10 +39,16 @@ const saveMany = (items) => {
       word: items[i].word,
       definition: items[i].definition
     })
+    newEntry.save((err) => {
+      if (!err) {
+        console.log('successfully seeded')
+      }
+    })
   }
-  .then(res => console.log('Seed data stored'));
-  .catch(err => console.log('Seed data already saved'));
+  // .then(res => console.log('Seed data stored'));
+  // .catch(err => console.log('Seed data already saved'));
 }
 
 module.exports.saveOne = saveOne;
 module.exports.saveMany = saveMany;
+module.exports.get = get;

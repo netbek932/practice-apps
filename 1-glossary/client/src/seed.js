@@ -1,4 +1,4 @@
-var seedData = [
+export var seedData = [
   {
     word: 'anthelion',
     definition: 'luminous ring seen on a cloud opposite the sun'
