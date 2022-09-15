@@ -30,14 +30,13 @@ class App extends React.Component {
   .catch(err => console.log('could not get glossary entries'))
   }
 
-  // conponentDidUpdate() {
-  //   console.log(this.state.glossary.length )
-  //   if (this.state.glossary.length === 0) {
-  //     var seedDataEntries = seedData;
-  //     axios.post('/glossary/:seeds', { data: {seedDataEntries} })
-  //     .then(res => console.log('Data added to glossary'))
-  //   }
-  // }
+  componentDidUpdate() {
+    axios.get('/glossary')
+    .then((fetchedData) => {
+    var fetchedEntries = fetchedData.data;
+    this.setState({glossary: fetchedEntries})
+  })
+  }
 
   postEntry (entry) {
     console.log('in axios post req')
