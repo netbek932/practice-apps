@@ -12,6 +12,7 @@ class App extends React.Component {
       glossary: []
     }
     this.postEntry = this.postEntry.bind(this);
+    this.delete = this.delete.bind(this);
   }
 
   componentDidMount() {
@@ -24,7 +25,7 @@ class App extends React.Component {
     if (this.state.glossary.length === 0) {
       var seedDataEntries = seedData;
       axios.post('/glossary/:seeds', { data: {seedDataEntries} })
-      .then(res => console.log('Data added to glossary'))
+      .then(done => console.log('Data added to glossary'))
     }
   })
   .catch(err => console.log('could not get glossary entries'))
@@ -41,14 +42,24 @@ class App extends React.Component {
   postEntry (entry) {
     console.log('in axios post req')
     axios.post('/glossary', {data: entry})
-    .then(res => console.log(res))
+    .then(done => console.log(res))
+  }
+
+  delete (entryId) {
+    axios.post('/deleted', {data: entryId})
+    .then(done => console.log('Deleted'))
+    .catch(err => console.log('Error deleting'))
   }
 
   render () {
     return (
       <div className="App">
         <h1>Welcome to glossary</h1>
-        <ul>{this.state.glossary.map((word) => <li key={word._id}>{word.word} - {word.definition}</li>)}</ul>
+        <ul>{this.state.glossary.map((word) =>
+          <li key={word._id}>
+            {word.word} - {word.definition} <button onClick={()=>this.delete(word._id)}>Delete</button>
+          </li>)}
+        </ul>
         < Entry post={this.postEntry.bind(this)}/>
       </div>
     )

@@ -45,10 +45,13 @@ const saveMany = (items) => {
       }
     })
   }
-  // .then(res => console.log('Seed data stored'));
-  // .catch(err => console.log('Seed data already saved'));
+}
+
+const deleteEntry = (item) => {
+  return Entry.deleteOne({_id: item}).then((result) => console.log('Deleted one')).catch(err => console.log('Error'));
 }
 
 module.exports.saveOne = saveOne;
 module.exports.saveMany = saveMany;
 module.exports.get = get;
+module.exports.deleteEntry = deleteEntry;
