@@ -51,7 +51,14 @@ const deleteEntry = (item) => {
   return Entry.deleteOne({_id: item}).then((result) => console.log('Deleted one')).catch(err => console.log('Error'));
 }
 
+const editEntry = (item) => {
+  const filter = {_id: item._id};
+  const update = {word: item.word, definition: item.definition};
+  return Entry.findOneAndUpdate(filter, update).then((result) => console.log('Updated one')).catch(err => console.log('Error'));
+}
+
 module.exports.saveOne = saveOne;
 module.exports.saveMany = saveMany;
 module.exports.get = get;
 module.exports.deleteEntry = deleteEntry;
+module.exports.editEntry = editEntry;
