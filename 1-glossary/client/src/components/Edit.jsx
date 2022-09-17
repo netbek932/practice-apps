@@ -12,16 +12,16 @@ const Edit = ({ handleClose, show, id, children }) => {
   // });
   const [editedWord, setEditedWord] = useState('');
   const [editedDefinition, setEditedDefinition] = useState('');
-
+  console.log('prop pass id', id)
   const showHideClassName = show ? "modal display-block" : "modal display-none";
 
   const handleSubmit = (e) => {
+    {console.log('submit click id', id)}
     e.preventDefault();
-    console.log('submit click', editedWord);
-    console.log('submit click', editedDefinition);
-    // const { editedWord, editedDefinition } = values;
+    console.log('submit click word', editedWord);
+    console.log('submit click def', editedDefinition);
     const editedEntry = {_id: id, word: editedWord, definition: editedDefinition}
-    console.log(editedEntry);
+    console.log('here is the edited entry', editedEntry);
     axios.post('/edits', editedEntry)
     //.then()
     //.catch()
@@ -29,20 +29,21 @@ const Edit = ({ handleClose, show, id, children }) => {
 
   const handleWordChange = (e) => {
     e.preventDefault();
-    console.log('pre state update', e.target.value)
+    //console.log('pre state update', e.target.value)
     setEditedWord(e.target.value);
-    console.log('post state update', editedWord);
+    //console.log('post state update', editedWord);
   }
 
   const handleDefinitionChange = (e) => {
     e.preventDefault();
-    console.log('pre state update', e.target.value)
+   // console.log('pre state update', e.target.value)
     setEditedDefinition(e.target.value);
-    console.log('post state update', editedDefinition);
+    //console.log('post state update', editedDefinition);
   }
 
   return (
     <div className={showHideClassName}>
+      {console.log('edit render id', id)}
       <section className="modal-main">
         {children}
         <label>

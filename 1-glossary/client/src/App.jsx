@@ -12,6 +12,7 @@ class App extends React.Component {
     this.state = {
       glossary: [],
       show: false,
+      clickedWordId: ''
     }
     this.postEntry = this.postEntry.bind(this);
     this.delete = this.delete.bind(this);
@@ -62,8 +63,8 @@ class App extends React.Component {
     .catch(err => console.log('Error deleting'))
   }
 
-  showModal = () => {
-    this.setState({ show: true });
+  showModal = (id) => {
+    this.setState({ show: true,  clickedWordId: id});
   };
 
   hideModal = () => {
@@ -76,15 +77,14 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1>Welcome to glossary</h1>
-        <ul>{this.state.glossary.map((word) =>
-          <li key={word._id} > {word.word} - {word.definition}
+        {this.state.glossary.map((word) =>
 
-            < Edit show={this.state.show} handleClose={this.hideModal} id={word._id}></Edit>
-              <button type="button" onClick={this.showModal}>Edit</button>
+          <div key={word._id} > {word.word} - {word.definition}
+              <button type="button" onClick={() => this.showModal(word._id)}>Edit</button>
 
             <button onClick={()=>this.delete(word._id)}>Delete</button>
-          </li>)}
-        </ul>
+          </div>)}
+        < Edit show={this.state.show} handleClose={this.hideModal} id={this.state.clickedWordId}></Edit>
         < Entry post={this.postEntry.bind(this)}/>
       </div>
     )

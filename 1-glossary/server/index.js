@@ -41,8 +41,14 @@ app.post('/deleted', function(req, res) {
 })
 
 app.post('/edits', function(req, res) {
-  console.log('IN EDIT POSTINGG', req.body)
-  var edit = req.body;
+  console.log('IN EDIT POSTINGG', req.body);
+  var body = req.body;
+  if (body.word.length === 0 && body.definition.length > 0) {
+    var edit = {_id: body._id, definition: body.definition};
+  } else if (body.word.length > 0 && body.definition.length === 0){
+    var edit = {_id: body._id, word: body.word};
+  }
+  console.log(edit);
   editEntry(edit)
   .then(result => res.end())
   .catch(err => console.log(err))
