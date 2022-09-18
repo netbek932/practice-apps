@@ -12,7 +12,6 @@ const Edit = ({ handleClose, show, id, children }) => {
   // });
   const [editedWord, setEditedWord] = useState('');
   const [editedDefinition, setEditedDefinition] = useState('');
-  console.log('prop pass id', id)
   const showHideClassName = show ? "modal display-block" : "modal display-none";
 
   const handleSubmit = (e) => {
@@ -43,7 +42,6 @@ const Edit = ({ handleClose, show, id, children }) => {
 
   return (
     <div className={showHideClassName}>
-      {console.log('edit render id', id)}
       <section className="modal-main">
         {children}
         <label>

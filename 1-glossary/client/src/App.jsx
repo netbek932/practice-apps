@@ -4,7 +4,7 @@ import '../dist/styles.css'
 const axios = require('axios');
 import { seedData } from './seed.js';
 import Entry from './components/Entry.jsx';
-import Edit from './components/Edit.jsx'
+import Edit from './components/Edit.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -12,12 +12,15 @@ class App extends React.Component {
     this.state = {
       glossary: [],
       show: false,
-      clickedWordId: ''
+      clickedWordId: '',
+      searchTerm: ''
     }
     this.postEntry = this.postEntry.bind(this);
     this.delete = this.delete.bind(this);
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.search = this.search.bind(this);
   }
 
   componentDidMount() {
@@ -43,16 +46,7 @@ class App extends React.Component {
   .catch(err => console.log('could not get glossary entries'))
   }
 
-  // componentDidUpdate() {
-  //   axios.get('/glossary')
-  //   .then((fetchedData) => {
-  //   var fetchedEntries = fetchedData.data;
-  //   this.setState({glossary: fetchedEntries})
-  //   })
-  // }
-
   postEntry (entry) {
-    console.log('in axios post req')
     axios.post('/glossary', {data: entry})
     .then(done => console.log(res))
   }
@@ -71,21 +65,38 @@ class App extends React.Component {
     this.setState({ show: false });
   };
 
+  handleChange(e) {
+    console.log(e.target.value)
+    e.preventDefault();
+    this.setState({searchTerm: e.target.value})
+  }
 
+  search () {
+    var term = this.state.searchTerm;
+    var glossary = this.state.glossary;
+    var searchedState = [];
+    for (var i = 0; i < glossary.length; i ++) {
+      if (glossary[i].word.includes(term)) {
+        searchedState.push(glossary[i]);
+      }
+    }
+    this.setState({glossary: searchedState})
+  }
 
   render () {
     return (
       <div className="App">
         <h1>Welcome to glossary</h1>
-        {this.state.glossary.map((word) =>
-
-          <div key={word._id} > {word.word} - {word.definition}
-              <button type="button" onClick={() => this.showModal(word._id)}>Edit</button>
-
+        {this.state.glossary.map((word) => <div key={word._id} > {word.word} - {word.definition}
+            <button type="button" onClick={() => this.showModal(word._id)}>Edit</button>
             <button onClick={()=>this.delete(word._id)}>Delete</button>
-          </div>)}
+        </div>)}
         < Edit show={this.state.show} handleClose={this.hideModal} id={this.state.clickedWordId}></Edit>
         < Entry post={this.postEntry.bind(this)}/>
+        <div className="Search">
+         <label> Search: <input type="text" name="search" onChange={this.handleChange}/></label>
+        <input type="submit" value="Search" onClick={() => this.search()}/>
+        </div>
       </div>
     )
   }

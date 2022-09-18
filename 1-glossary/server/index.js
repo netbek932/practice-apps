@@ -41,7 +41,6 @@ app.post('/deleted', function(req, res) {
 })
 
 app.post('/edits', function(req, res) {
-  console.log('IN EDIT POSTINGG', req.body);
   var body = req.body;
   if (body.word.length === 0 && body.definition.length > 0) {
     var edit = {_id: body._id, definition: body.definition};

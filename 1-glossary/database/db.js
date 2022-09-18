@@ -55,7 +55,6 @@ const editEntry = (item) => {
   const filter = {_id: item._id};
   const update = item.word ? {word: item.word} : {definition: item.definition};
 
-  //var update = {word: item.word, definition: item.definition};
   return Entry.findOneAndUpdate(filter, update).then((result) => console.log('Updated one')).catch(err => console.log('Error'));
 }
 
