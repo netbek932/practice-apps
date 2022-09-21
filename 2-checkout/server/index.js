@@ -1,4 +1,5 @@
 require("dotenv").config();
+//console.log(process.env)
 const express = require("express");
 const path = require("path");
 const sessionHandler = require("./middleware/session-handler");
@@ -19,12 +20,12 @@ app.use(logger);
 // Serves up all static and generated assets in ../client/dist.
 app.use(express.static(path.join(__dirname, "../client/dist")));
 
-/**** 
- * 
- * 
+/****
+ *
+ *
  * Other routes here....
  *
- * 
+ *
  */
 
 app.listen(process.env.PORT);
