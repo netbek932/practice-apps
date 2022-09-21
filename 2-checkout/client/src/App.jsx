@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import F1 from './components/F1.jsx';
+const axios = require('axios');
 
 class App extends React.Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class App extends React.Component {
       showF2: false,
       showF3: false,
       showSummary: false,
-      user: {
+      customer: {
         name: '',
         email: '',
         password: '',
@@ -28,6 +29,7 @@ class App extends React.Component {
       }
     }
     this.handleClick = this.handleClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleClick (e, field) {
@@ -37,15 +39,20 @@ class App extends React.Component {
     })
   }
 
+  handleSubmit(inputData) {
+    axios.post('/customers', {data: inputData})
+    .then((result) => console.log('Success'))
+    .catch((err) => console.log(err))
+  }
 
 
   render () {
     return (
       <div className="App">
         <p>Welcome to checkout!</p>
-        <code>Page Cookie: {JSON.stringify(document.cookie, undefined, "\t")}</code>
+        {/* <code>Page Cookie: {JSON.stringify(document.cookie, undefined, "\t")}</code> */}
         <button onClick={(e) => this.handleClick(e, 'showF1')}>Checkout</button>
-        {this.state.showF1 ? <F1 /> : ''}
+        {this.state.showF1 ? <F1 next={this.handleSubmit}/> : ''}
       </div>
     )
   }

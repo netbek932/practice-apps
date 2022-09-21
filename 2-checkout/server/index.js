@@ -1,9 +1,10 @@
 require("dotenv").config();
-//console.log(process.env)
 const express = require("express");
 const path = require("path");
 const sessionHandler = require("./middleware/session-handler");
 const logger = require("./middleware/logger");
+var bodyParser = require('body-parser');
+
 
 // Establishes connection to the database on server start
 const db = require("./db");
@@ -19,6 +20,8 @@ app.use(logger);
 
 // Serves up all static and generated assets in ../client/dist.
 app.use(express.static(path.join(__dirname, "../client/dist")));
+app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true}))
 
 /****
  *
@@ -27,6 +30,21 @@ app.use(express.static(path.join(__dirname, "../client/dist")));
  *
  *
  */
+
+app.post('/customers', function(req, res) {
+  var data = req.body.data;
+  var values = [req.session_id, data.name, data.email, data.password, data.address1, data.address2, data.city, data.state, data.zip, data.phone, data.credit_card, data.expiration_date, data.cvv, data.billing_zip]
+  var myQuery = 'INSERT INTO customers (session_id, name, email, password, address1, address2, city, state, zip, phone, credit_card, expiration_date, cvv, billing_zip) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'
+  db.query(myQuery, values, function(err, result) {
+    if (err) {
+      console.log(err)
+      res.send(err)
+    } else {
+      console.log('success')
+      res.send('Success')
+    }
+  })
+})
 
 app.listen(process.env.PORT);
 console.log(`Listening at http://localhost:${process.env.PORT}`);

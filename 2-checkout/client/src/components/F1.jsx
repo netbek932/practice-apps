@@ -9,19 +9,18 @@ class F1 extends React.Component {
       name: '',
       email: '',
       password: '',
-      submitDisabled: true
     }
     this.handleChange = this.handleChange.bind(this);
-   // this.nextForm = this.nextForm.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e, field) {
     e.preventDefault();
-    this.setState({ [field]: e.target.value, submitDisabled: false});
+    this.setState({ [field]: e.target.value});
   }
 
-  handleSubmit() {
-    //axios post with state
+  handleSubmit(data) {
+    this.props.next(this.state);
   }
 
   render () {
@@ -35,7 +34,7 @@ class F1 extends React.Component {
         <input type="text" onChange={(e)=>this.handleChange(e, "email")}/>
         <p>Password:</p>
         <input type="text" onChange={(e)=>this.handleChange(e, "password")}/>
-        <button type="button" disabled={this.state.submitDisabled}>Next</button>
+        <input type="button" value="Next" onClick={this.handleSubmit}/>
       </form>
       </div>
     )
