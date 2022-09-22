@@ -22,7 +22,7 @@ class F2 extends React.Component {
   }
 
   handleSubmit(data) {
-    this.props.next(this.state, 'showF2', 'showF3')
+    this.props.next(this.state, 'showF2', 'showF3', 'F2')
   }
 
   render () {

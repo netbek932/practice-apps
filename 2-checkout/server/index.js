@@ -45,13 +45,11 @@ app.post('/customers', function(req, res) {
   })
 })
 
-app.get('/customers/:session_id', function(req, res) {
+app.get('/customers', function(req, res) {
   var cookie = req.session_id;
-  console.log(cookie);
   var dbQuery = `SELECT * FROM customers WHERE session_id = '${cookie}';`;
   db.query(dbQuery, function(err, result) {
     if (err) {
-      console.log(err)
       res.send(err)
     } else {
       res.send(result);

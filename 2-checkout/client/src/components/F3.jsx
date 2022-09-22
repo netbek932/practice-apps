@@ -20,7 +20,7 @@ class F3 extends React.Component {
   }
 
   handleSubmit () {
-    this.props.next(this.state, 'showF3', 'showSummary')
+    this.props.next(this.state, 'showF3', 'showSummary', 'F3')
   }
 
   render () {
@@ -35,7 +35,7 @@ class F3 extends React.Component {
           <p>CVV</p>
           <input type="text" onChange={(e) => this.handleChange(e, 'cvv')}/>
           <p>Billing zip code</p>
-          <input type="text" />
+          <input type="text" onChange={(e) => this.handleChange(e, 'billingZip')}/>
           <input type="button" value="Next" onClick={this.handleSubmit}/>
         </form>
       </div>

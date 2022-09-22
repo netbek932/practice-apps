@@ -21,9 +21,8 @@ class F1 extends React.Component {
   }
 
   handleSubmit() {
-    axios.get('/customers/:session_id')
+    axios.get('/customers')
     .then((result) => {
-      console.log(result)
       if (result.data.length > 0) {
         this.setState({ existingCookie: true })
       } else {
@@ -34,7 +33,7 @@ class F1 extends React.Component {
       console.log(this.state.existingCookie)
       this.state.existingCookie
       ? alert('You have already submitted a form')
-      : this.props.next(this.state, 'showF1', 'showF2')
+      : this.props.next(this.state, 'showF1', 'showF2', 'F1')
     })
     .catch(err => console.log(err))
   }
