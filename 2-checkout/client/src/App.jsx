@@ -14,6 +14,7 @@ class App extends React.Component {
       showF2: false,
       showF3: false,
       showSummary: false,
+      existingCookie: false,
       customer: {
         name: '',
         email: '',
@@ -50,9 +51,8 @@ class App extends React.Component {
         [nextField]: true
       })
     })
-    .catch((err) => console.log(err))
+    .catch(err => console.log(err))
   }
-
 
   render () {
     return (
@@ -60,7 +60,7 @@ class App extends React.Component {
         <p>Welcome to checkout!</p>
         {/* <code>Page Cookie: {JSON.stringify(document.cookie, undefined, "\t")}</code> */}
         <button onClick={(e) => this.handleClick(e, 'showF1')}>Checkout</button>
-        {this.state.showF1 ? <F1 next={this.handleSubmit}/> : ''}
+        {this.state.showF1 ? <F1 next={this.handleSubmit} checkCookie={this.checkCookie} /> : ''}
         {this.state.showF2 ? <F2 next={this.handleSubmit}/> : ''}
         {this.state.showF3 ? <F3 next={this.handleSubmit}/> : ''}
       </div>

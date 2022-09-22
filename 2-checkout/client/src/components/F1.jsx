@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+const axios = require('axios');
 
 class F1 extends React.Component {
   constructor(props) {
@@ -9,6 +9,7 @@ class F1 extends React.Component {
       name: '',
       email: '',
       password: '',
+      existingCookie: false
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,7 +21,22 @@ class F1 extends React.Component {
   }
 
   handleSubmit() {
-    this.props.next(this.state, 'showF1', 'showF2');
+    axios.get('/customers/:session_id')
+    .then((result) => {
+      console.log(result)
+      if (result.data.length > 0) {
+        this.setState({ existingCookie: true })
+      } else {
+        this.setState({ existingCookie: false })
+      }
+    })
+    .then((newstate) => {
+      console.log(this.state.existingCookie)
+      this.state.existingCookie
+      ? alert('You have already submitted a form')
+      : this.props.next(this.state, 'showF1', 'showF2')
+    })
+    .catch(err => console.log(err))
   }
 
   render () {
