@@ -12,7 +12,7 @@ CREATE TABLE customers (
   city VARCHAR(40) DEFAULT '',
   state VARCHAR(40) DEFAULT '',
   zip INT(10) DEFAULT NULL,
-  phone INT(10) DEFAULT NULL,
+  phone VARCHAR(15) DEFAULT NULL,
   credit_card INT(16) DEFAULT NULL,
   expiration_date DATE DEFAULT NULL,
   cvv INT(3) DEFAULT NULL,
