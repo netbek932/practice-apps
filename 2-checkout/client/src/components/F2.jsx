@@ -42,7 +42,7 @@ class F2 extends React.Component {
           <input type="text" onChange={(e) => this.handleChange(e, 'zip')}/>
           <p>Phone</p>
           <input type="text" onChange={(e) => this.handleChange(e, 'phone')}/>
-          <input type="button" value="next" onClick={this.handleSubmit}/>
+          <input type="button" value="Next" onClick={this.handleSubmit}/>
         </form>
       </div>
     )

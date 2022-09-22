@@ -19,7 +19,7 @@ class F1 extends React.Component {
     this.setState({ [field]: e.target.value});
   }
 
-  handleSubmit(data) {
+  handleSubmit() {
     this.props.next(this.state, 'showF1', 'showF2');
   }
 

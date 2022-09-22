@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import F1 from './components/F1.jsx';
 import F2 from './components/F2.jsx';
+import F3 from './components/F3.jsx';
 const axios = require('axios');
 
 class App extends React.Component {
@@ -61,6 +62,7 @@ class App extends React.Component {
         <button onClick={(e) => this.handleClick(e, 'showF1')}>Checkout</button>
         {this.state.showF1 ? <F1 next={this.handleSubmit}/> : ''}
         {this.state.showF2 ? <F2 next={this.handleSubmit}/> : ''}
+        {this.state.showF3 ? <F3 next={this.handleSubmit}/> : ''}
       </div>
     )
   }
